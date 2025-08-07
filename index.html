@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Immobilière</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Page de connexion */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--light-color);
+        }
+        
+        .login-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .login-form h1 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .login-form button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Menu principal */
+        .main-menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .menu-item i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .menu-item h2 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        /* Services */
+        .services-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .services-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            width: fit-content;
+        }
+        
+        .service-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 200px;
+        }
+        
+        .service-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-item i {
+            font-size: 36px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* Navigation */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .nav-button {
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-button.back {
+            background-color: var(--warning-color);
+        }
+        
+        .nav-button.back:hover {
+            background-color: #e67e22;
+        }
+        
+        /* Formulaires */
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-submit {
+            padding: 12px 24px;
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .form-submit:hover {
+            background-color: #27ae60;
+        }
+        
+        /* Tableaux */
+        .table-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--light-color);
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .status-paid {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+        
+        .status-unpaid {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .edit-btn {
+            padding: 5px 10px;
+            background-color: var(--warning-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .edit-btn:hover {
+            background-color: #e67e22;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h2 {
+            color: var(--dark-color);
+        }
+        
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Filtres */
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-group label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .show-btn {
+            padding: 8px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .show-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* Statistiques */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* Graphique */
+        .chart-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+        
+        .chart-container h2 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-menu {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-menu {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page de connexion -->
+    <div id="login-page" class="login-container">
+        <div class="login-form">
+            <h1>Connexion</h1>
+            <input type="password" id="password" placeholder="Mot de passe">
+            <button id="login-btn">Se connecter</button>
+        </div>
+    </div>
+
+    <!-- Menu principal -->
+    <div id="main-menu-page" class="container" style="display: none;">
+        <h1>Gestion Immobilière</h1>
+        <div class="main-menu">
+            <div class="menu-item" data-target="rent-menu">
+                <i class="fas fa-home"></i>
+                <h2>Gestion des Loyers</h2>
+                <p>Gérez les paiements de loyer des locataires</p>
+            </div>
+            <div class="menu-item" data-target="water-menu">
+                <i class="fas fa-tint"></i>
+                <h2>Gestion de l'Eau</h2>
+                <p>Suivi des consommations et factures d'eau</p>
+            </div>
+            <div class="menu-item" data-target="electricity-menu">
+                <i class="fas fa-bolt"></i>
+                <h2>Gestion de l'Électricité</h2>
+                <p>Suivi des consommations et factures d'électricité</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Gestion des Loyers -->
+    <div id="rent-menu" class="container" style="display: none;">
+        <h1>Gestion des Loyers</h1>
+        <div class="services-container">
+            <div class="services-menu">
+                <div class="service-item" data-target="add-tenant">
+                    <i class="fas fa-user-plus"></i>
+                    <h3>Ajouter un Locataire</h3>
+                </div>
+                <div class="service-item" data-target="tenant-list">
+                    <i class="fas fa-users"></i>
+                    <h3>Liste des Locataires</h3>
+                </div>
+                <div class="service-item" data-target="rent-monthly-table">
+                    <i class="fas fa-table"></i>
+                    <h3>Tableau Mensuel</h3>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="main-menu-page">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+            <button class="nav-button" id="reset-data-btn">Réinitialiser</button>
+        </div>
+    </div>
+
+    <!-- Menu Gestion de l'Eau -->
+    <div id="water-menu" class="container" style="display: none;">
+        <h1>Gestion de l'Eau</h1>
+        <div class="services-container">
+            <div class="services-menu">
+                <div class="service-item" data-target="water-monthly-table">
+                    <i class="fas fa-table"></i>
+                    <h3>Tableau Mensuel</h3>
+                </div>
+                <div class="service-item" data-target="water-annual-view">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Vue Annuelle</h3>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="main-menu-page">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Menu Gestion de l'Électricité -->
+    <div id="electricity-menu" class="container" style="display: none;">
+        <h1>Gestion de l'Électricité</h1>
+        <div class="services-container">
+            <div class="services-menu">
+                <div class="service-item" data-target="electricity-monthly-table">
+                    <i class="fas fa-table"></i>
+                    <h3>Tableau Mensuel</h3>
+                </div>
+                <div class="service-item" data-target="electricity-annual-view">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Vue Annuelle</h3>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="main-menu-page">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Ajouter un Locataire -->
+    <div id="add-tenant" class="container" style="display: none;">
+        <h1>Ajouter un Locataire</h1>
+        <div class="form-container">
+            <form id="tenant-form">
+                <div class="form-group">
+                    <label for="tenant-name">Nom du Locataire</label>
+                    <input type="text" id="tenant-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenant-address">Adresse</label>
+                    <input type="text" id="tenant-address" required>
+                </div>
+                <div class="form-group">
+                    <label for="tenant-type">Type de Logement</label>
+                    <select id="tenant-type" required>
+                        <option value="">Sélectionner...</option>
+                        <option value="chambre">Chambre</option>
+                        <option value="studio">Studio</option>
+                        <option value="appartement">Appartement</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tenant-rent">Loyer Mensuel (FCFA)</label>
+                    <input type="number" id="tenant-rent" required>
+                </div>
+                <button type="submit" class="form-submit">Enregistrer</button>
+            </form>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="rent-menu">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Liste des Locataires -->
+    <div id="tenant-list" class="container" style="display: none;">
+        <h1>Liste des Locataires</h1>
+        <div class="table-container">
+            <table id="tenants-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Adresse</th>
+                        <th>Type de Logement</th>
+                        <th>Loyer Mensuel</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les données seront ajoutées dynamiquement -->
+                </tbody>
+            </table>
+        </div>
+        <button id="add-tenant-btn" class="form-submit" style="margin-top: 20px;">Ajouter un Locataire</button>
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="rent-menu">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Tableau Mensuel des Loyers -->
+    <div id="rent-monthly-table" class="container" style="display: none;">
+        <h1>Tableau Mensuel des Loyers</h1>
+        <div class="filters">
+            <div class="filter-group">
+                <label for="rent-month">Mois:</label>
+                <select id="rent-month">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="rent-year">Année:</label>
+                <select id="rent-year">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <button class="show-btn" id="show-rent-btn">Afficher</button>
+        </div>
+        <div class="table-container" id="rent-table-container" style="display: none;">
+            <table id="rent-payments-table">
+                <thead>
+                    <tr>
+                        <th>Nom du Locataire</th>
+                        <th>Loyer Mensuel</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les données seront ajoutées dynamiquement -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="stats-container" id="rent-stats-container" style="display: none;">
+            <div class="stat-card">
+                <h3>Total Loyers</h3>
+                <div class="stat-value" id="total-rent">0 FCFA</div>
+            </div>
+            <div class="stat-card">
+                <h3>Loyers Payés</h3>
+                <div class="stat-value" id="paid-rent">0 FCFA</div>
+            </div>
+            <div class="stat-card">
+                <h3>Taux de Paiement</h3>
+                <div class="stat-value" id="payment-rate">0%</div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="rent-menu">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Tableau Mensuel de l'Eau -->
+    <div id="water-monthly-table" class="container" style="display: none;">
+        <h1>Tableau Mensuel de l'Eau</h1>
+        <div class="filters">
+            <div class="filter-group">
+                <label for="water-month">Mois:</label>
+                <select id="water-month">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="water-year">Année:</label>
+                <select id="water-year">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <button class="show-btn" id="show-water-btn">Afficher</button>
+        </div>
+        <div class="table-container" id="water-table-container" style="display: none;">
+            <table id="water-bills-table">
+                <thead>
+                    <tr>
+                        <th>Nom du Locataire</th>
+                        <th>Ancien Index</th>
+                        <th>Nouvel Index</th>
+                        <th>Consommation (L)</th>
+                        <th>Coût (FCFA)</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les données seront ajoutées dynamiquement -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="stats-container" id="water-stats-container" style="display: none;">
+            <div class="stat-card">
+                <h3>Consommation Totale</h3>
+                <div class="stat-value" id="total-water-consumption">0 L</div>
+            </div>
+            <div class="stat-card">
+                <h3>Coût Total</h3>
+                <div class="stat-value" id="total-water-cost">0 FCFA</div>
+            </div>
+            <div class="stat-card">
+                <h3>Taux de Paiement</h3>
+                <div class="stat-value" id="water-payment-rate">0%</div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="water-menu">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Vue Annuelle de l'Eau -->
+    <div id="water-annual-view" class="container" style="display: none;">
+        <h1>Vue Annuelle de l'Eau</h1>
+        <div class="filters">
+            <div class="filter-group">
+                <label for="water-annual-year">Année:</label>
+                <select id="water-annual-year">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <button class="show-btn" id="show-water-annual-btn">Afficher</button>
+        </div>
+        <div class="chart-container" id="water-chart-container" style="display: none;">
+            <h2>Consommation Mensuelle</h2>
+            <canvas id="water-annual-chart"></canvas>
+        </div>
+        
+        <div class="chart-container" id="water-cost-container" style="display: none;">
+            <h2>Coûts Mensuels</h2>
+            <canvas id="water-cost-chart"></canvas>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="water-menu">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Tableau Mensuel de l'Électricité -->
+    <div id="electricity-monthly-table" class="container" style="display: none;">
+        <h1>Tableau Mensuel de l'Électricité</h1>
+        <div class="filters">
+            <div class="filter-group">
+                <label for="electricity-month">Mois:</label>
+                <select id="electricity-month">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="electricity-year">Année:</label>
+                <select id="electricity-year">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <button class="show-btn" id="show-electricity-btn">Afficher</button>
+        </div>
+        <div class="table-container" id="electricity-table-container" style="display: none;">
+            <table id="electricity-bills-table">
+                <thead>
+                    <tr>
+                        <th>Nom du Locataire</th>
+                        <th>Ancien Index</th>
+                        <th>Nouvel Index</th>
+                        <th>Consommation (kWh)</th>
+                        <th>Coût (FCFA)</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les données seront ajoutées dynamiquement -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="stats-container" id="electricity-stats-container" style="display: none;">
+            <div class="stat-card">
+                <h3>Consommation Totale</h3>
+                <div class="stat-value" id="total-electricity-consumption">0 kWh</div>
+            </div>
+            <div class="stat-card">
+                <h3>Coût Total</h3>
+                <div class="stat-value" id="total-electricity-cost">0 FCFA</div>
+            </div>
+            <div class="stat-card">
+                <h3>Taux de Paiement</h3>
+                <div class="stat-value" id="electricity-payment-rate">0%</div>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="electricity-menu">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Vue Annuelle de l'Électricité -->
+    <div id="electricity-annual-view" class="container" style="display: none;">
+        <h1>Vue Annuelle de l'Électricité</h1>
+        <div class="filters">
+            <div class="filter-group">
+                <label for="electricity-annual-year">Année:</label>
+                <select id="electricity-annual-year">
+                    <!-- Options seront ajoutées dynamiquement -->
+                </select>
+            </div>
+            <button class="show-btn" id="show-electricity-annual-btn">Afficher</button>
+        </div>
+        <div class="chart-container" id="electricity-chart-container" style="display: none;">
+            <h2>Consommation Mensuelle</h2>
+            <canvas id="electricity-annual-chart"></canvas>
+        </div>
+        
+        <div class="chart-container" id="electricity-cost-container" style="display: none;">
+            <h2>Coûts Mensuels</h2>
+            <canvas id="electricity-cost-chart"></canvas>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="nav-button back" data-target="electricity-menu">Retour</button>
+            <button class="nav-button" data-target="main-menu-page">Accueil</button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="edit-tenant-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Modifier Locataire</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="edit-tenant-form">
+                <input type="hidden" id="edit-tenant-id">
+                <div class="form-group">
+                    <label for="edit-tenant-name">Nom du Locataire</label>
+                    <input type="text" id="edit-tenant-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="edit-tenant-address">Adresse</label>
+                    <input type="text" id="edit-tenant-address">
+                </div>
+                <div class="form-group">
+                    <label for="edit-tenant-type">Type de Logement</label>
+                    <select id="edit-tenant-type">
+                        <option value="chambre">Chambre</option>
+                        <option value="studio">Studio</option>
+                        <option value="appartement">Appartement</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-tenant-rent">Loyer Mensuel (FCFA)</label>
+                    <input type="number" id="edit-tenant-rent">
+                </div>
+                <button type="submit" class="form-submit">Enregistrer les Modifications</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-rent-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Modifier Paiement de Loyer</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="edit-rent-form">
+                <input type="hidden" id="edit-rent-id">
+                <input type="hidden" id="edit-rent-month">
+                <input type="hidden" id="edit-rent-year">
+                <div class="form-group">
+                    <label for="edit-rent-name">Nom du Locataire</label>
+                    <input type="text" id="edit-rent-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="edit-rent-amount">Loyer Mensuel (FCFA)</label>
+                    <input type="number" id="edit-rent-amount" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="edit-rent-status">Statut</label>
+                    <select id="edit-rent-status">
+                        <option value="unpaid">Non Payé</option>
+                        <option value="paid">Payé</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-submit">Enregistrer les Modifications</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-water-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Modifier Facture d'Eau</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="edit-water-form">
+                <input type="hidden" id="edit-water-id">
+                <input type="hidden" id="edit-water-month">
+                <input type="hidden" id="edit-water-year">
+                <div class="form-group">
+                    <label for="edit-water-name">Nom du Locataire</label>
+                    <input type="text" id="edit-water-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="edit-water-old-index">Ancien Index (L)</label>
+                    <input type="number" id="edit-water-old-index" step="0.01" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="edit-water-new-index">Nouvel Index (L)</label>
+                    <input type="number" id="edit-water-new-index" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-water-status">Statut de Paiement</label>
+                    <select id="edit-water-status" required>
+                        <option value="unpaid">Non Payé</option>
+                        <option value="paid">Payé</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-submit">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-electricity-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Modifier Facture d'Électricité</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="edit-electricity-form">
+                <input type="hidden" id="edit-electricity-id">
+                <input type="hidden" id="edit-electricity-month">
+                <input type="hidden" id="edit-electricity-year">
+                <div class="form-group">
+                    <label for="edit-electricity-name">Nom du Locataire</label>
+                    <input type="text" id="edit-electricity-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="edit-electricity-old-index">Ancien Index (kWh)</label>
+                    <input type="number" id="edit-electricity-old-index" step="0.01" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="edit-electricity-new-index">Nouvel Index (kWh)</label>
+                    <input type="number" id="edit-electricity-new-index" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-electricity-status">Statut de Paiement</label>
+                    <select id="edit-electricity-status" required>
+                        <option value="unpaid">Non Payé</option>
+                        <option value="paid">Payé</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-submit">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de confirmation de réinitialisation -->
+    <div id="reset-confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmer la réinitialisation</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="form-group">
+                <label for="reset-password">Mot de passe:</label>
+                <input type="password" id="reset-password">
+            </div>
+            <button id="confirm-reset-btn" class="form-submit">Confirmer</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Données de l'application
+        const appData = {
+            password: "admin123", // Mot de passe par défaut
+            tenants: JSON.parse(localStorage.getItem('tenants')) || [],
+            rentPayments: JSON.parse(localStorage.getItem('rentPayments')) || {},
+            waterBills: JSON.parse(localStorage.getItem('waterBills')) || {},
+            electricityBills: JSON.parse(localStorage.getItem('electricityBills')) || {},
+            currentPage: 'login-page',
+            navigationStack: []
+        };
+
+        // Initialisation de l'application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Écouteurs pour la navigation
+            setupNavigation();
+            
+            // Écouteurs pour les formulaires
+            setupForms();
+            
+            // Configuration des filtres
+            setupFilters();
+            
+            // Afficher la page de connexion par défaut
+            showPage('login-page');
+        });
+
+        // Configuration de la navigation
+        function setupNavigation() {
+            // Connexion
+            document.getElementById('login-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                const password = document.getElementById('password').value;
+                if (password === appData.password) {
+                    document.getElementById('login-page').style.display = 'none';
+                    document.getElementById('main-menu-page').style.display = 'block';
+                    document.getElementById('password').value = '';
+                    appData.currentPage = 'main-menu-page';
+                } else {
+                    alert('Mot de passe incorrect');
+                }
+            });
+            
+            // Navigation entre les pages
+            document.querySelectorAll('.menu-item, .service-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-target');
+                    showPage(targetPage);
+                });
+            });
+            
+            // Boutons de navigation
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-target');
+                    if (this.classList.contains('back')) {
+                        navigateBack();
+                    } else {
+                        showPage(targetPage);
+                    }
+                });
+            });
+            
+            // Bouton "Ajouter un Locataire" dans la liste
+            document.getElementById('add-tenant-btn')?.addEventListener('click', function() {
+                showPage('add-tenant');
+            });
+            
+            // Bouton de réinitialisation
+            document.getElementById('reset-data-btn')?.addEventListener('click', function() {
+                document.getElementById('reset-confirm-modal').style.display = 'flex';
+            });
+            
+            // Confirmation de réinitialisation
+            document.getElementById('confirm-reset-btn')?.addEventListener('click', function() {
+                const password = document.getElementById('reset-password').value;
+                if (password === appData.password) {
+                    resetAllData();
+                    document.getElementById('reset-confirm-modal').style.display = 'none';
+                    alert('Toutes les données ont été réinitialisées!');
+                    showPage('main-menu-page');
+                } else {
+                    alert('Mot de passe incorrect');
+                }
+            });
+            
+            // Fermeture des modales
+            document.querySelectorAll('.close-modal').forEach(closeBtn => {
+                closeBtn.addEventListener('click', function() {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.style.display = 'none';
+                    });
+                });
+            });
+            
+            // Fermer la modale en cliquant à l'extérieur
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Boutons d'affichage pour les tableaux mensuels
+            document.getElementById('show-rent-btn')?.addEventListener('click', function() {
+                updateRentTable();
+                document.getElementById('rent-table-container').style.display = 'block';
+                document.getElementById('rent-stats-container').style.display = 'grid';
+            });
+            
+            document.getElementById('show-water-btn')?.addEventListener('click', function() {
+                updateWaterTable();
+                document.getElementById('water-table-container').style.display = 'block';
+                document.getElementById('water-stats-container').style.display = 'grid';
+            });
+            
+            document.getElementById('show-electricity-btn')?.addEventListener('click', function() {
+                updateElectricityTable();
+                document.getElementById('electricity-table-container').style.display = 'block';
+                document.getElementById('electricity-stats-container').style.display = 'grid';
+            });
+            
+            // Boutons d'affichage pour les vues annuelles
+            document.getElementById('show-water-annual-btn')?.addEventListener('click', showWaterAnnualView);
+            document.getElementById('show-electricity-annual-btn')?.addEventListener('click', showElectricityAnnualView);
+        }
+
+        // Configuration des formulaires
+        function setupForms() {
+            // Formulaire d'ajout de locataire
+            document.getElementById('tenant-form')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                addTenant();
+            });
+            
+            // Formulaire de modification de locataire
+            document.getElementById('edit-tenant-form')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateTenant();
+            });
+            
+            // Formulaire de modification de paiement de loyer
+            document.getElementById('edit-rent-form')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateRentPayment();
+            });
+            
+            // Formulaire de modification de facture d'eau
+            document.getElementById('edit-water-form')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateWaterBill();
+            });
+            
+            // Formulaire de modification de facture d'électricité
+            document.getElementById('edit-electricity-form')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateElectricityBill();
+            });
+        }
+
+        // Configuration des filtres
+        function setupFilters() {
+            // Initialiser les options de mois et année
+            const months = [
+                'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+                'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+            ];
+            
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth();
+            
+            // Remplir les sélecteurs de mois
+            document.querySelectorAll('select[id$="month"]').forEach(select => {
+                select.innerHTML = '';
+                months.forEach((month, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = month;
+                    if (index === currentMonth) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                });
+            });
+            
+            // Remplir les sélecteurs d'année (de 2025 à 2035)
+            document.querySelectorAll('select[id$="year"]').forEach(select => {
+                select.innerHTML = '';
+                for (let year = 2025; year <= 2035; year++) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    if (year === currentYear) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                }
+            });
+            
+            // Remplir les sélecteurs d'année pour les vues annuelles (de 2025 à 2035)
+            document.querySelectorAll('select[id$="annual-year"]').forEach(select => {
+                select.innerHTML = '';
+                for (let year = 2025; year <= 2035; year++) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    if (year === currentYear) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Gestion de l'affichage des pages
+        function showPage(pageId) {
+            // Cacher toutes les pages
+            document.querySelectorAll('.container').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Afficher la page demandée
+            document.getElementById(pageId).style.display = 'block';
+            
+            // Mettre à jour le contenu de la page
+            updatePageContent(pageId);
+            
+            // Gérer la pile de navigation
+            if (pageId !== appData.currentPage && !appData.navigationStack.includes(pageId)) {
+                appData.navigationStack.push(appData.currentPage);
+            }
+            appData.currentPage = pageId;
+        }
+
+        // Navigation arrière
+        function navigateBack() {
+            if (appData.navigationStack.length > 0) {
+                const previousPage = appData.navigationStack.pop();
+                showPage(previousPage);
+            } else {
+                showPage('main-menu-page');
+            }
+        }
+
+        // Mise à jour du contenu de la page
+        function updatePageContent(pageId) {
+            switch (pageId) {
+                case 'tenant-list':
+                    updateTenantsTable();
+                    break;
+                case 'rent-monthly-table':
+                    // Ne pas afficher automatiquement, attendre le clic sur "Afficher"
+                    document.getElementById('rent-table-container').style.display = 'none';
+                    document.getElementById('rent-stats-container').style.display = 'none';
+                    break;
+                case 'water-monthly-table':
+                    // Ne pas afficher automatiquement, attendre le clic sur "Afficher"
+                    document.getElementById('water-table-container').style.display = 'none';
+                    document.getElementById('water-stats-container').style.display = 'none';
+                    break;
+                case 'electricity-monthly-table':
+                    // Ne pas afficher automatiquement, attendre le clic sur "Afficher"
+                    document.getElementById('electricity-table-container').style.display = 'none';
+                    document.getElementById('electricity-stats-container').style.display = 'none';
+                    break;
+                case 'water-annual-view':
+                    // Ne pas afficher automatiquement, attendre le clic sur "Afficher"
+                    document.getElementById('water-chart-container').style.display = 'none';
+                    document.getElementById('water-cost-container').style.display = 'none';
+                    break;
+                case 'electricity-annual-view':
+                    // Ne pas afficher automatiquement, attendre le clic sur "Afficher"
+                    document.getElementById('electricity-chart-container').style.display = 'none';
+                    document.getElementById('electricity-cost-container').style.display = 'none';
+                    break;
+            }
+        }
+
+        // Gestion des locataires
+        function addTenant() {
+            const name = document.getElementById('tenant-name').value;
+            const address = document.getElementById('tenant-address').value;
+            const type = document.getElementById('tenant-type').value;
+            const rent = parseFloat(document.getElementById('tenant-rent').value);
+            
+            const newTenant = {
+                id: Date.now(),
+                name,
+                address,
+                type,
+                rent,
+                createdAt: new Date().toISOString(),
+                active: true
+            };
+            
+            appData.tenants.push(newTenant);
+            saveData('tenants', appData.tenants);
+            
+            // Vider le formulaire
+            document.getElementById('tenant-form').reset();
+            
+            // Mettre à jour les tableaux concernés
+            updateTenantsTable();
+            updateRentTable();
+            updateWaterTable();
+            updateElectricityTable();
+            
+            alert('Locataire ajouté avec succès!');
+        }
+
+        function updateTenant() {
+            const id = parseInt(document.getElementById('edit-tenant-id').value);
+            const address = document.getElementById('edit-tenant-address').value;
+            const type = document.getElementById('edit-tenant-type').value;
+            const rent = parseFloat(document.getElementById('edit-tenant-rent').value);
+            
+            const tenantIndex = appData.tenants.findIndex(t => t.id === id);
+            if (tenantIndex !== -1) {
+                appData.tenants[tenantIndex].address = address;
+                appData.tenants[tenantIndex].type = type;
+                appData.tenants[tenantIndex].rent = rent;
+                
+                saveData('tenants', appData.tenants);
+                updateTenantsTable();
+                updateRentTable();
+                updateWaterTable();
+                updateElectricityTable();
+                
+                document.getElementById('edit-tenant-modal').style.display = 'none';
+                alert('Locataire mis à jour avec succès!');
+            }
+        }
+
+        function deleteTenant(tenantId) {
+            const tenantIndex = appData.tenants.findIndex(t => t.id === tenantId);
+            if (tenantIndex !== -1) {
+                appData.tenants[tenantIndex].active = false;
+                saveData('tenants', appData.tenants);
+                updateTenantsTable();
+                updateRentTable();
+                updateWaterTable();
+                updateElectricityTable();
+                alert('Locataire marqué comme inactif!');
+            }
+        }
+
+        function openEditTenantModal(tenantId) {
+            const tenant = appData.tenants.find(t => t.id === tenantId);
+            if (tenant) {
+                document.getElementById('edit-tenant-id').value = tenant.id;
+                document.getElementById('edit-tenant-name').value = tenant.name;
+                document.getElementById('edit-tenant-address').value = tenant.address;
+                document.getElementById('edit-tenant-type').value = tenant.type;
+                document.getElementById('edit-tenant-rent').value = tenant.rent;
+                
+                document.getElementById('edit-tenant-modal').style.display = 'flex';
+            }
+        }
+
+        function updateTenantsTable() {
+            const tableBody = document.querySelector('#tenants-table tbody');
+            tableBody.innerHTML = '';
+            
+            appData.tenants.forEach(tenant => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td>${tenant.name}</td>
+                    <td>${tenant.address}</td>
+                    <td>${tenant.type}</td>
+                    <td>${tenant.rent.toLocaleString()} FCFA</td>
+                    <td>
+                        <button class="edit-btn" data-id="${tenant.id}">Modifier</button>
+                        <button class="edit-btn" style="background-color: ${tenant.active ? 'var(--accent-color)' : '#999'};" 
+                                data-id="${tenant.id}" data-action="${tenant.active ? 'delete' : 'reactivate'}">
+                            ${tenant.active ? 'Supprimer' : 'Réactiver'}
+                        </button>
+                    </td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+            
+            // Ajouter les écouteurs d'événements aux boutons
+            document.querySelectorAll('#tenants-table .edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tenantId = parseInt(this.getAttribute('data-id'));
+                    const action = this.getAttribute('data-action');
+                    
+                    if (action === 'delete') {
+                        if (confirm('Voulez-vous vraiment supprimer ce locataire?')) {
+                            deleteTenant(tenantId);
+                        }
+                    } else if (action === 'reactivate') {
+                        reactivateTenant(tenantId);
+                    } else {
+                        openEditTenantModal(tenantId);
+                    }
+                });
+            });
+        }
+
+        function reactivateTenant(tenantId) {
+            const tenantIndex = appData.tenants.findIndex(t => t.id === tenantId);
+            if (tenantIndex !== -1) {
+                appData.tenants[tenantIndex].active = true;
+                saveData('tenants', appData.tenants);
+                updateTenantsTable();
+                updateRentTable();
+                updateWaterTable();
+                updateElectricityTable();
+                alert('Locataire réactivé avec succès!');
+            }
+        }
+
+        // Gestion des paiements de loyer
+        function updateRentTable() {
+            const month = document.getElementById('rent-month').value;
+            const year = document.getElementById('rent-year').value;
+            const periodKey = `${year}-${month}`;
+            
+            const tableBody = document.querySelector('#rent-payments-table tbody');
+            tableBody.innerHTML = '';
+            
+            // Initialiser le tableau pour cette période
+            if (!appData.rentPayments[periodKey]) {
+                appData.rentPayments[periodKey] = [];
+            }
+            
+            // Synchroniser avec la liste actuelle des locataires actifs
+            appData.tenants.forEach(tenant => {
+                if (tenant.active && new Date(tenant.createdAt) <= new Date(year, month)) {
+                    const exists = appData.rentPayments[periodKey].some(p => p.tenantId === tenant.id);
+                    if (!exists) {
+                        appData.rentPayments[periodKey].push({
+                            id: `${tenant.id}-${periodKey}`,
+                            tenantId: tenant.id,
+                            tenantName: tenant.name,
+                            amount: tenant.rent,
+                            status: 'unpaid'
+                        });
+                    }
+                }
+            });
+            
+            // Supprimer les locataires inactifs ou non encore créés
+            appData.rentPayments[periodKey] = appData.rentPayments[periodKey].filter(payment => {
+                const tenant = appData.tenants.find(t => t.id === payment.tenantId);
+                return tenant && tenant.active && new Date(tenant.createdAt) <= new Date(year, month);
+            });
+            
+            saveData('rentPayments', appData.rentPayments);
+            
+            // Afficher tous les locataires actifs pour cette période
+            let totalRent = 0;
+            let paidRent = 0;
+            let paidCount = 0;
+            
+            appData.rentPayments[periodKey].forEach(payment => {
+                totalRent += payment.amount;
+                if (payment.status === 'paid') {
+                    paidRent += payment.amount;
+                    paidCount++;
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${payment.tenantName}</td>
+                    <td>${payment.amount.toLocaleString()} FCFA</td>
+                    <td class="status-${payment.status}">${payment.status === 'paid' ? 'Payé' : 'Non Payé'}</td>
+                    <td><button class="edit-btn" data-id="${payment.id}" data-month="${month}" data-year="${year}">Modifier</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Mettre à jour les statistiques
+            document.getElementById('total-rent').textContent = `${totalRent.toLocaleString()} FCFA`;
+            document.getElementById('paid-rent').textContent = `${paidRent.toLocaleString()} FCFA`;
+            
+            const paymentRate = totalRent > 0 ? Math.round((paidRent / totalRent) * 100) : 0;
+            document.getElementById('payment-rate').textContent = `${paymentRate}%`;
+            
+            // Ajouter les écouteurs d'événements aux boutons de modification
+            document.querySelectorAll('#rent-payments-table .edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const paymentId = this.getAttribute('data-id');
+                    const month = this.getAttribute('data-month');
+                    const year = this.getAttribute('data-year');
+                    openEditRentModal(paymentId, month, year);
+                });
+            });
+        }
+
+        function updateRentPayment() {
+            const paymentId = document.getElementById('edit-rent-id').value;
+            const month = document.getElementById('edit-rent-month').value;
+            const year = document.getElementById('edit-rent-year').value;
+            const status = document.getElementById('edit-rent-status').value;
+            
+            const periodKey = `${year}-${month}`;
+            if (appData.rentPayments[periodKey]) {
+                const paymentIndex = appData.rentPayments[periodKey].findIndex(p => p.id === paymentId);
+                if (paymentIndex !== -1) {
+                    appData.rentPayments[periodKey][paymentIndex].status = status;
+                    saveData('rentPayments', appData.rentPayments);
+                    
+                    document.getElementById('edit-rent-modal').style.display = 'none';
+                    updateRentTable();
+                    alert('Paiement mis à jour avec succès!');
+                }
+            }
+        }
+
+        function openEditRentModal(paymentId, month, year) {
+            const periodKey = `${year}-${month}`;
+            if (appData.rentPayments[periodKey]) {
+                const payment = appData.rentPayments[periodKey].find(p => p.id === paymentId);
+                if (payment) {
+                    document.getElementById('edit-rent-id').value = payment.id;
+                    document.getElementById('edit-rent-month').value = month;
+                    document.getElementById('edit-rent-year').value = year;
+                    document.getElementById('edit-rent-name').value = payment.tenantName;
+                    document.getElementById('edit-rent-amount').value = payment.amount;
+                    document.getElementById('edit-rent-status').value = payment.status;
+                    
+                    document.getElementById('edit-rent-modal').style.display = 'flex';
+                }
+            }
+        }
+
+        // Gestion des factures d'eau
+        function updateWaterTable() {
+            const month = document.getElementById('water-month').value;
+            const year = document.getElementById('water-year').value;
+            const periodKey = `${year}-${month}`;
+            
+            const tableBody = document.querySelector('#water-bills-table tbody');
+            tableBody.innerHTML = '';
+            
+            // Initialiser le tableau pour cette période
+            if (!appData.waterBills[periodKey]) {
+                appData.waterBills[periodKey] = [];
+            }
+            
+            // Synchroniser avec la liste actuelle des locataires actifs
+            appData.tenants.forEach(tenant => {
+                if (tenant.active && new Date(tenant.createdAt) <= new Date(year, month)) {
+                    const exists = appData.waterBills[periodKey].some(b => b.tenantId === tenant.id);
+                    if (!exists) {
+                        // Trouver l'index précédent (du mois précédent)
+                        let oldIndex = 0;
+                        const prevMonth = month > 0 ? month - 1 : 11;
+                        const prevYear = month > 0 ? year : year - 1;
+                        const prevPeriodKey = `${prevYear}-${prevMonth}`;
+                        
+                        if (appData.waterBills[prevPeriodKey]) {
+                            const prevBill = appData.waterBills[prevPeriodKey].find(b => b.tenantId === tenant.id);
+                            if (prevBill) {
+                                oldIndex = prevBill.newIndex;
+                            }
+                        }
+                        
+                        appData.waterBills[periodKey].push({
+                            id: `${tenant.id}-${periodKey}`,
+                            tenantId: tenant.id,
+                            tenantName: tenant.name,
+                            oldIndex,
+                            newIndex: oldIndex, // Initialisé à l'ancien index
+                            consumption: 0,
+                            cost: 0,
+                            status: 'unpaid'
+                        });
+                    }
+                }
+            });
+            
+            // Supprimer les locataires inactifs ou non encore créés
+            appData.waterBills[periodKey] = appData.waterBills[periodKey].filter(bill => {
+                const tenant = appData.tenants.find(t => t.id === bill.tenantId);
+                return tenant && tenant.active && new Date(tenant.createdAt) <= new Date(year, month);
+            });
+            
+            saveData('waterBills', appData.waterBills);
+            
+            // Afficher tous les locataires actifs pour cette période
+            let totalConsumption = 0;
+            let totalCost = 0;
+            let paidCount = 0;
+            
+            appData.waterBills[periodKey].forEach(bill => {
+                totalConsumption += bill.consumption;
+                totalCost += bill.cost;
+                if (bill.status === 'paid') paidCount++;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${bill.tenantName}</td>
+                    <td>${bill.oldIndex.toLocaleString()}</td>
+                    <td>${bill.newIndex.toLocaleString()}</td>
+                    <td>${bill.consumption.toLocaleString()} L</td>
+                    <td>${bill.cost.toLocaleString()} FCFA</td>
+                    <td class="status-${bill.status}">${bill.status === 'paid' ? 'Payé' : 'Non Payé'}</td>
+                    <td><button class="edit-btn" data-id="${bill.id}" data-month="${month}" data-year="${year}">Modifier</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Mettre à jour les statistiques
+            document.getElementById('total-water-consumption').textContent = `${totalConsumption.toLocaleString()} L`;
+            document.getElementById('total-water-cost').textContent = `${totalCost.toLocaleString()} FCFA`;
+            
+            const totalBills = appData.waterBills[periodKey]?.length || 0;
+            const paymentRate = totalBills > 0 ? Math.round((paidCount / totalBills) * 100) : 0;
+            document.getElementById('water-payment-rate').textContent = `${paymentRate}%`;
+            
+            // Ajouter les écouteurs d'événements aux boutons de modification
+            document.querySelectorAll('#water-bills-table .edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const billId = this.getAttribute('data-id');
+                    const month = this.getAttribute('data-month');
+                    const year = this.getAttribute('data-year');
+                    openEditWaterModal(billId, month, year);
+                });
+            });
+        }
+
+        function updateWaterBill() {
+            const billId = document.getElementById('edit-water-id').value;
+            const month = document.getElementById('edit-water-month').value;
+            const year = document.getElementById('edit-water-year').value;
+            const newIndex = parseFloat(document.getElementById('edit-water-new-index').value);
+            const status = document.getElementById('edit-water-status').value;
+            
+            const periodKey = `${year}-${month}`;
+            if (appData.waterBills[periodKey]) {
+                const billIndex = appData.waterBills[periodKey].findIndex(b => b.id === billId);
+                if (billIndex !== -1) {
+                    const oldIndex = appData.waterBills[periodKey][billIndex].oldIndex;
+                    const consumption = newIndex - oldIndex;
+                    
+                    appData.waterBills[periodKey][billIndex] = {
+                        ...appData.waterBills[periodKey][billIndex],
+                        newIndex,
+                        consumption,
+                        cost: consumption * 100, // 100 FCFA par litre
+                        status
+                    };
+
+                    saveData('waterBills', appData.waterBills);
+                    
+                    document.getElementById('edit-water-modal').style.display = 'none';
+                    updateWaterTable();
+                    alert('Facture d\'eau mise à jour avec succès!');
+                }
+            }
+        }
+
+        function openEditWaterModal(billId, month, year) {
+            const periodKey = `${year}-${month}`;
+            if (appData.waterBills[periodKey]) {
+                const bill = appData.waterBills[periodKey].find(b => b.id === billId);
+                if (bill) {
+                    document.getElementById('edit-water-id').value = bill.id;
+                    document.getElementById('edit-water-month').value = month;
+                    document.getElementById('edit-water-year').value = year;
+                    document.getElementById('edit-water-name').value = bill.tenantName;
+                    document.getElementById('edit-water-old-index').value = bill.oldIndex;
+                    document.getElementById('edit-water-new-index').value = bill.newIndex;
+                    document.getElementById('edit-water-status').value = bill.status;
+                    
+                    document.getElementById('edit-water-modal').style.display = 'flex';
+                }
+            }
+        }
+
+        // Vue Annuelle de l'Eau
+        function showWaterAnnualView() {
+            const year = document.getElementById('water-annual-year').value;
+            
+            // Mettre à jour les graphiques
+            updateWaterAnnualChart(year);
+            updateWaterCostChart(year);
+            
+            // Afficher les éléments
+            document.getElementById('water-chart-container').style.display = 'block';
+            document.getElementById('water-cost-container').style.display = 'block';
+        }
+
+        function updateWaterAnnualChart(year) {
+            const ctx = document.getElementById('water-annual-chart').getContext('2d');
+            
+            // Préparer les données pour chaque mois de l'année
+            const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+            const consumptionData = [];
+            
+            for (let month = 0; month < 12; month++) {
+                const periodKey = `${year}-${month}`;
+                let totalConsumption = 0;
+                
+                if (appData.waterBills[periodKey]) {
+                    appData.waterBills[periodKey].forEach(bill => {
+                        totalConsumption += bill.consumption;
+                    });
+                }
+                
+                consumptionData.push(totalConsumption);
+            }
+            
+            // Créer ou mettre à jour le graphique
+            if (window.waterAnnualChart) {
+                window.waterAnnualChart.data.labels = months;
+                window.waterAnnualChart.data.datasets[0].data = consumptionData;
+                window.waterAnnualChart.update();
+            } else {
+                window.waterAnnualChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [
+                            {
+                                label: 'Consommation d\'eau (L)',
+                                data: consumptionData,
+                                borderColor: '#3498db',
+                                backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateWaterCostChart(year) {
+            const ctx = document.getElementById('water-cost-chart').getContext('2d');
+            
+            // Préparer les données pour chaque mois de l'année
+            const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+            const costData = [];
+            
+            for (let month = 0; month < 12; month++) {
+                const periodKey = `${year}-${month}`;
+                let totalCost = 0;
+                
+                if (appData.waterBills[periodKey]) {
+                    appData.waterBills[periodKey].forEach(bill => {
+                        totalCost += bill.cost;
+                    });
+                }
+                
+                costData.push(totalCost);
+            }
+            
+            // Créer ou mettre à jour le graphique
+            if (window.waterCostChart) {
+                window.waterCostChart.data.labels = months;
+                window.waterCostChart.data.datasets[0].data = costData;
+                window.waterCostChart.update();
+            } else {
+                window.waterCostChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [
+                            {
+                                label: 'Coût des factures d\'eau (FCFA)',
+                                data: costData,
+                                backgroundColor: '#3498db'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Gestion des factures d'électricité
+        function updateElectricityTable() {
+            const month = document.getElementById('electricity-month').value;
+            const year = document.getElementById('electricity-year').value;
+            const periodKey = `${year}-${month}`;
+            
+            const tableBody = document.querySelector('#electricity-bills-table tbody');
+            tableBody.innerHTML = '';
+            
+            // Initialiser le tableau pour cette période
+            if (!appData.electricityBills[periodKey]) {
+                appData.electricityBills[periodKey] = [];
+            }
+            
+            // Synchroniser avec la liste actuelle des locataires actifs
+            appData.tenants.forEach(tenant => {
+                if (tenant.active && new Date(tenant.createdAt) <= new Date(year, month)) {
+                    const exists = appData.electricityBills[periodKey].some(b => b.tenantId === tenant.id);
+                    if (!exists) {
+                        // Trouver l'index précédent (du mois précédent)
+                        let oldIndex = 0;
+                        const prevMonth = month > 0 ? month - 1 : 11;
+                        const prevYear = month > 0 ? year : year - 1;
+                        const prevPeriodKey = `${prevYear}-${prevMonth}`;
+                        
+                        if (appData.electricityBills[prevPeriodKey]) {
+                            const prevBill = appData.electricityBills[prevPeriodKey].find(b => b.tenantId === tenant.id);
+                            if (prevBill) {
+                                oldIndex = prevBill.newIndex;
+                            }
+                        }
+                        
+                        appData.electricityBills[periodKey].push({
+                            id: `${tenant.id}-${periodKey}`,
+                            tenantId: tenant.id,
+                            tenantName: tenant.name,
+                            oldIndex,
+                            newIndex: oldIndex, // Initialisé à l'ancien index
+                            consumption: 0,
+                            cost: 0,
+                            status: 'unpaid'
+                        });
+                    }
+                }
+            });
+            
+            // Supprimer les locataires inactifs ou non encore créés
+            appData.electricityBills[periodKey] = appData.electricityBills[periodKey].filter(bill => {
+                const tenant = appData.tenants.find(t => t.id === bill.tenantId);
+                return tenant && tenant.active && new Date(tenant.createdAt) <= new Date(year, month);
+            });
+            
+            saveData('electricityBills', appData.electricityBills);
+            
+            // Afficher tous les locataires actifs pour cette période
+            let totalConsumption = 0;
+            let totalCost = 0;
+            let paidCount = 0;
+            
+            appData.electricityBills[periodKey].forEach(bill => {
+                totalConsumption += bill.consumption;
+                totalCost += bill.cost;
+                if (bill.status === 'paid') paidCount++;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${bill.tenantName}</td>
+                    <td>${bill.oldIndex.toLocaleString()}</td>
+                    <td>${bill.newIndex.toLocaleString()}</td>
+                    <td>${bill.consumption.toLocaleString()} kWh</td>
+                    <td>${bill.cost.toLocaleString()} FCFA</td>
+                    <td class="status-${bill.status}">${bill.status === 'paid' ? 'Payé' : 'Non Payé'}</td>
+                    <td><button class="edit-btn" data-id="${bill.id}" data-month="${month}" data-year="${year}">Modifier</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // Mettre à jour les statistiques
+            document.getElementById('total-electricity-consumption').textContent = `${totalConsumption.toLocaleString()} kWh`;
+            document.getElementById('total-electricity-cost').textContent = `${totalCost.toLocaleString()} FCFA`;
+            
+            const totalBills = appData.electricityBills[periodKey]?.length || 0;
+            const paymentRate = totalBills > 0 ? Math.round((paidCount / totalBills) * 100) : 0;
+            document.getElementById('electricity-payment-rate').textContent = `${paymentRate}%`;
+            
+            // Ajouter les écouteurs d'événements aux boutons de modification
+            document.querySelectorAll('#electricity-bills-table .edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const billId = this.getAttribute('data-id');
+                    const month = this.getAttribute('data-month');
+                    const year = this.getAttribute('data-year');
+                    openEditElectricityModal(billId, month, year);
+                });
+            });
+        }
+
+        function updateElectricityBill() {
+            const billId = document.getElementById('edit-electricity-id').value;
+            const month = document.getElementById('edit-electricity-month').value;
+            const year = document.getElementById('edit-electricity-year').value;
+            const newIndex = parseFloat(document.getElementById('edit-electricity-new-index').value);
+            const status = document.getElementById('edit-electricity-status').value;
+            
+            const periodKey = `${year}-${month}`;
+            if (appData.electricityBills[periodKey]) {
+                const billIndex = appData.electricityBills[periodKey].findIndex(b => b.id === billId);
+                if (billIndex !== -1) {
+                    const oldIndex = appData.electricityBills[periodKey][billIndex].oldIndex;
+                    const consumption = newIndex - oldIndex;
+                    
+                    appData.electricityBills[periodKey][billIndex] = {
+                        ...appData.electricityBills[periodKey][billIndex],
+                        newIndex,
+                        consumption,
+                        cost: consumption * 150, // 150 FCFA par kWh
+                        status
+                    };
+
+                    saveData('electricityBills', appData.electricityBills);
+                    
+                    document.getElementById('edit-electricity-modal').style.display = 'none';
+                    updateElectricityTable();
+                    alert('Facture d\'électricité mise à jour avec succès!');
+                }
+            }
+        }
+
+        function openEditElectricityModal(billId, month, year) {
+            const periodKey = `${year}-${month}`;
+            if (appData.electricityBills[periodKey]) {
+                const bill = appData.electricityBills[periodKey].find(b => b.id === billId);
+                if (bill) {
+                    document.getElementById('edit-electricity-id').value = bill.id;
+                    document.getElementById('edit-electricity-month').value = month;
+                    document.getElementById('edit-electricity-year').value = year;
+                    document.getElementById('edit-electricity-name').value = bill.tenantName;
+                    document.getElementById('edit-electricity-old-index').value = bill.oldIndex;
+                    document.getElementById('edit-electricity-new-index').value = bill.newIndex;
+                    document.getElementById('edit-electricity-status').value = bill.status;
+                    
+                    document.getElementById('edit-electricity-modal').style.display = 'flex';
+                }
+            }
+        }
+
+        // Vue Annuelle de l'Électricité
+        function showElectricityAnnualView() {
+            const year = document.getElementById('electricity-annual-year').value;
+            
+            // Mettre à jour les graphiques
+            updateElectricityAnnualChart(year);
+            updateElectricityCostChart(year);
+            
+            // Afficher les éléments
+            document.getElementById('electricity-chart-container').style.display = 'block';
+            document.getElementById('electricity-cost-container').style.display = 'block';
+        }
+
+        function updateElectricityAnnualChart(year) {
+            const ctx = document.getElementById('electricity-annual-chart').getContext('2d');
+            
+            // Préparer les données pour chaque mois de l'année
+            const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+            const consumptionData = [];
+            
+            for (let month = 0; month < 12; month++) {
+                const periodKey = `${year}-${month}`;
+                let totalConsumption = 0;
+                
+                if (appData.electricityBills[periodKey]) {
+                    appData.electricityBills[periodKey].forEach(bill => {
+                        totalConsumption += bill.consumption;
+                    });
+                }
+                
+                consumptionData.push(totalConsumption);
+            }
+            
+            // Créer ou mettre à jour le graphique
+            if (window.electricityAnnualChart) {
+                window.electricityAnnualChart.data.labels = months;
+                window.electricityAnnualChart.data.datasets[0].data = consumptionData;
+                window.electricityAnnualChart.update();
+            } else {
+                window.electricityAnnualChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: months,
+                        datasets: [
+                            {
+                                label: 'Consommation d\'électricité (kWh)',
+                                data: consumptionData,
+                                borderColor: '#f39c12',
+                                backgroundColor: 'rgba(243, 156, 18, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateElectricityCostChart(year) {
+            const ctx = document.getElementById('electricity-cost-chart').getContext('2d');
+            
+            // Préparer les données pour chaque mois de l'année
+            const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+            const costData = [];
+            
+            for (let month = 0; month < 12; month++) {
+                const periodKey = `${year}-${month}`;
+                let totalCost = 0;
+                
+                if (appData.electricityBills[periodKey]) {
+                    appData.electricityBills[periodKey].forEach(bill => {
+                        totalCost += bill.cost;
+                    });
+                }
+                
+                costData.push(totalCost);
+            }
+            
+            // Créer ou mettre à jour le graphique
+            if (window.electricityCostChart) {
+                window.electricityCostChart.data.labels = months;
+                window.electricityCostChart.data.datasets[0].data = costData;
+                window.electricityCostChart.update();
+            } else {
+                window.electricityCostChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [
+                            {
+                                label: 'Coût des factures d\'électricité (FCFA)',
+                                data: costData,
+                                backgroundColor: '#f39c12'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Fonctions utilitaires
+        function saveData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        function resetAllData() {
+            localStorage.clear();
+            appData.tenants = [];
+            appData.rentPayments = {};
+            appData.waterBills = {};
+            appData.electricityBills = {};
+            
+            // Réinitialiser les tableaux
+            updateTenantsTable();
+        }
+    </script>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBIgSOd5sEsQMTZn6op6oEMuKGagir8k8o",
+    authDomain: "gestion-immeuble-cc87c.firebaseapp.com",
+    projectId: "gestion-immeuble-cc87c",
+    storageBucket: "gestion-immeuble-cc87c.firebasestorage.app",
+    messagingSenderId: "721865161018",
+    appId: "1:721865161018:web:6661e527bbe6976a423803",
+    measurementId: "G-05HLLBEF0J"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Synchronisation initiale depuis Firebase vers localStorage
+  async function syncFromFirebase() {
+    const keys = ["tenants", "rentPayments", "waterBills", "electricityBills"];
+    for (const key of keys) {
+      const doc = await db.collection("appData").doc(key).get();
+      if (doc.exists) {
+        localStorage.setItem(key, JSON.stringify(doc.data().data));
+      }
+    }
+    location.reload(); // recharger pour appliquer les données
+  }
+
+  // Synchronisation locale vers Firebase
+  async function syncToFirebase() {
+    const keys = ["tenants", "rentPayments", "waterBills", "electricityBills"];
+    for (const key of keys) {
+      const value = localStorage.getItem(key);
+      if (value) {
+        await db.collection("appData").doc(key).set({ data: JSON.parse(value) });
+      }
+    }
+    alert("Données sauvegardées en ligne avec succès !");
+  }
+
+  // Exportation locale
+  function exportData() {
+    const data = {
+      tenants: JSON.parse(localStorage.getItem("tenants") || "[]"),
+      rentPayments: JSON.parse(localStorage.getItem("rentPayments") || "{}"),
+      waterBills: JSON.parse(localStorage.getItem("waterBills") || "{}"),
+      electricityBills: JSON.parse(localStorage.getItem("electricityBills") || "{}")
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "sauvegarde_app.json";
+    a.click();
+  }
+
+  // Importation locale
+  function importData(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const content = JSON.parse(e.target.result);
+      localStorage.setItem("tenants", JSON.stringify(content.tenants || []));
+      localStorage.setItem("rentPayments", JSON.stringify(content.rentPayments || {}));
+      localStorage.setItem("waterBills", JSON.stringify(content.waterBills || {}));
+      localStorage.setItem("electricityBills", JSON.stringify(content.electricityBills || {}));
+      alert("Importation réussie ! Rechargement...");
+      location.reload();
+    };
+    reader.readAsText(file);
+  }
+</script>
+
+<!-- Boutons d'action en haut de l'application -->
+<div style="position: fixed; top: 10px; right: 10px; z-index: 9999;">
+  <button onclick="syncToFirebase()" style="padding:6px 12px;">💾 Sauvegarder en ligne</button>
+  <button onclick="syncFromFirebase()" style="padding:6px 12px;">☁️ Restaurer depuis Firebase</button>
+  <button onclick="exportData()" style="padding:6px 12px;">⬇️ Exporter</button>
+  <label style="padding:6px 12px; background:#ccc; cursor:pointer;">
+    📁 Importer <input type="file" onchange="importData(event)" style="display:none;">
+  </label>
+</div>
+
+</body>
+</html>
